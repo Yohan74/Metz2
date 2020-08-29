@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% load static%}
+
+{% block content %}
+
+<link href="{% static 'css/import.css' %}" rel="stylesheet">
+
+<div class="container mt-3">
+
+  <form method="POST">
+    {% csrf_token %}
+
+    <div class="row">
+      <!-- COLONNE GAUCHE -->
+      <div class="col-sm-6">
+        <div class="d-flex align-items-center justify-content-center h-100 " style="background-color: #1e2832;">  
+            <div class="bg-white m-3 p-3">          
+              <p style="text-align: center;">Le numéro est : <br> <span style="font-weight: bold;">{{num_monument}}</span> </p>
+              <p style="text-align: center;">Le nom du monument est : <br> <span style="font-weight: bold;">{{name_monument}}</span> </p>
+              <p style="text-align: center;">sa remarque : <br> <span style="font-weight: bold;">{{rem_monument}}</span> </p>
+<!-- 
+              <p> Le nom du monument est : {{name_monument}} <br>
+                  <span> sa remarque : {{rem_monument}} </span>
+              </p> -->
+          </div>
+        </div>
+      </div>
+      <!-- COLONNE DROITE -->
+      <div class="col-sm-6">
+        <div class="d-flex align-items-center justify-content-center h-100 " style="background-color: #1e2832;">
+          <div class="bg-white m-3 p-3">
+            <p style="margin-bottom: -30px;">Selection de la catégorie de la fiche : </p>
+            {% for selection in form %}
+            <p>{{ selection.label_tag }} <br> <span style="margin-left: 40px;">{{selection}}</span></p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+  </div>
+
+    <hr>
+
+    <table class="table">
+        <thead>
+          <tr style="background-color: #32281E; color: antiquewhite;">
+            <th scope="col">#</th>
+            <th scope="col">Date</th>
+            <th scope="col">Historique</th>
+            <th scope="col">Remarque</th>
+          </tr>
+        </thead>
+        {% for date, historique, remarque in list_monument %}
+
+        <tbody>
+          <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{date}}</td>
+            <td>{{historique}}</td>
+            <td>{{remarque}}</td>
+          </tr>
+        </tbody>
+
+        {% endfor %}
+      </table>
+
+
+        <div class="mb-5" style="text-align: center;">
+          <button type="submit" class="btn btn-primary">Valider</button>
+        <!-- <input type="button">-->
+        <a href="{% url 'delete_upload' %}" class="btn btn-danger">Recommencer</a>
+        </div>
+  </form>
+
+</div>
+
+
+
+{% endblock %}

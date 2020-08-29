@@ -1,0 +1,48 @@
+
+<!-- Pas compatible avec ma version 4.5.0 de bootstrap.min.css -->
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+    <div class="container">    
+        <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
+            <div class="panel panel-info" >
+                    <div class="panel-heading">
+                        <div class="panel-title">Connexion</div>
+                        <!-- Pas de gestion de perte de mot de passe pour le moment -->
+                        <!-- <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div> -->
+                    </div>     
+
+                    <div style="padding-top:30px" class="panel-body" >
+
+                        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+                            
+                            <form method="post" class="form-horizontal">
+                            {% csrf_token %}        
+                            <div style="margin-bottom: 25px" class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                        <input type="text" name="username" placeholder="Nom d'utilisateur" class="form-control" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">                                        
+                                    </div>
+                                
+                            <div style="margin-bottom: 25px" class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                        <input type="password" name="password" placeholder="Mot de passe" class="form-control" autocomplete="current-password" required id="id_password">
+                                    </div>
+                                    
+
+                                
+                            <!-- <div class="input-group">
+                                      <div class="checkbox">
+                                        <label>
+                                          <input id="login-remember" type="checkbox" name="remember" value="1"> Remember me
+                                        </label>
+                                      </div>
+                                    </div> -->
+
+
+                                <div style="margin-top:10px" class="form-group">
+                                    <!-- Button -->
+
+                                    <div class="col-sm-12 controls">
+                                      <button type="submit" class="btn btn-success">Valider</button>
+                                    </div>
+                                </div> 
+                            </form>     

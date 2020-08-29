@@ -1,0 +1,9 @@
+*.pyc
+*~
+/.vscode
+__pycache__
+venv
+.DS_Store
+/.idea
+trash.py
+A FAIRE.txt

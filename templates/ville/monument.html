@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load static%}
+
+{% block content %}
+
+<div class="container mt-3">
+    <h1 style="text-align: center;">{{ value }}</h1> 
+    <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="mb-3" style="height: 250px ;">
+                <div class="container" style="text-align: center;">
+                    {% for monument in monuments %}
+                        <a href='{% url "detail" value monument.slug  %}' class="list-group-item list-group-item-action"> {{monument.nom}} </a>
+                        {% if forloop.counter|divisibleby:"5"  %}
+                            </div></div></div>
+                                <div class="col-lg-4 col-md-6 mb-4">
+                                    <div class="mb-3" style="height: 250px ;">
+                                        <div class="container" style="text-align: center;">
+                        {% endif %}
+                        {% empty %}
+                        <div class="col-sm-12 offset-11">
+                            <p>Désolé, nous récoltons toujours des informations.</p>
+                            <div class="col-sm-12" style="text-align: center;">
+                                <a href="{% url 'selection' %}">
+                                    <img src="{% static 'img/left-arrow.png' %}" style="width: 80px;" alt="MetZ">
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

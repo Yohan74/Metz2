@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-3">
+
+    <div class="row">
+        {% for name, value in selection %}
+        <div class="col-lg-4 col-md-6 mb-4">
+        
+            <div class="card">
+                <img src="{% static 'img/card_'%}{{value}}.jpg" class="rounded mx-auto d-block mt-2" style="width:200px; height: 200px; ">
+                <div class="container" style="text-align: center;">
+                    <a href="{% url 'monument' value  %}"><h4><b>{{name}}</b></h4></a>
+                </div>
+                
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}
+
+

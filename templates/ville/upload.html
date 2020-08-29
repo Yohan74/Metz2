@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+<link href="{% static  'css/upload.css' %}" rel="stylesheet">
+
+<div class="container center">
+	<div class="row">
+		<div class="col-md-12">
+			<h1 class="white">Envoie des fichiers Excel </h1>
+			<p class="white">Cette page permet de sélectionner un fichier à transmettre pour le mettre en ligne. <br> Un aperçu sera disponible avant validation.</p>
+		</div>
+	</div>
+	
+    <form name="upload" method="post" action="#" enctype="multipart/form-data" accept-charset="utf-8">
+        {% csrf_token %}
+		<div class="row">
+			<div class="col-md-6 offset-3 center">
+				<div class="btn-container">
+					<h1 class="imgupload"><i class="fa fa-file-excel-o"></i></h1>
+					<h1 class="imgupload ok"><i class="fa fa-check"></i></h1>
+					<h1 class="imgupload stop"><i class="fa fa-times"></i></h1>
+					<p id="namefile">Seuls les fichiers Excel sont autorisés <span style="font-size: smaller;">(.xls ou .xlsx)</span></p>
+					<button type="button" id="btnup" class="btn btn-primary btn-lg">Recherchez votre fichier!</button>
+					<input type="file" value="" name="document" id="fileup">
+				</div>
+			</div>
+		</div>
+		<div class="row">			
+			<div class="col-md-12">
+				<input type="submit" value="Envoyer!" class="btn btn-primary" id="submitbtn">
+				<button type="button" class="btn btn-default" disabled="disabled" id="fakebtn">Envoyer! <i class="fa fa-minus-circle"></i></button>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+
+
+{% endblock %}

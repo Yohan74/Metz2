@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link href="{% static  'css/metz.css' %}" rel="stylesheet">
+
+<div class="container">
+<div class="row">
+    <div class="col-12">
+        <h1>{{ nom }}</h1>
+        <div class="card">
+            <div class="card-body">
+                {% for a in detail_nom.dates_set.all %}
+                <ul class="timeline timeline-left">
+                    <li class="timeline-inverted timeline-item">
+                        <div class="timeline-badge"><i class="fa fa-clock ">{{ forloop.counter }}</i></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading"><h4 class="timeline-title">{{ a.date }}</h4></div>
+                            <div class="row">
+                            <div class="timeline-body col-sm-8 {% if a.remarque != '' %} vertical-divider {% endif %} ">
+                                <p>{{a.historique }}</p>
+                            </div>
+                            <div class="timeline-rem col-sm-4">
+                                <p>{{a.remarque }}</p>
+                            </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+{% endblock %}
