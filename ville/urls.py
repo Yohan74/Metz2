@@ -30,5 +30,8 @@ urlpatterns = [
     path("del_fiche/<value>/<slug>/", views.del_fiche, name="del_fiche"),
     path("modif/", views.modif_fiche, name="modif_fiche"),
     path("del_verif/<value>/<slug>/", views.del_verif, name="del_verif"),
-    
+
+    # Path recherche
+    path('fiche_import_d/s/', views.search, name='search'),
+   
 ]

@@ -1,3 +1,38 @@
 ul {
     list-style-type: none;
   }
+
+  .navbar2 {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    margin-bottom : 20px;
+    opacity: 1;
+    background-color:white;
+}
+
+.navbar2 .navbar-collapse{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.navbar2 .nav-link {
+    margin: 10px 2px 0 10px ;
+    text-align: center;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #9FA6B5;
+    color: white;
+    max-width: 110px;
+    min-width: 80px ;
+}
+
+.navbar2 .nav-link:hover {
+    background-color: rgb(182, 177, 179);
+}
+
+.form-inline {
+    padding: 0 5px 20px 20px;
+    display: flex;
+    justify-content: center;
+}

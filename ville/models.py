@@ -4,17 +4,22 @@ from django.db import models
 
 SELECTION = (
     # ('NOM1', 'NOM2'),                 # NOM1 apparait             / NOM2 apparait dans le path
-    # ('Quartier', 'Quartier'),
+
+    ('Antiquité', 'Antiquité'),
     ('Eglise', 'Eglise'),
     ('Cathédrale', 'Cathédrale'),
-    ('Fermes-Châteaux','Fermes-Châteaux'),
-    ('Maisons','Maisons'),
-    ('Greniers','Greniers'),
-    ('Musées','Musées'),
-    ('Ponts','Ponts'),
-    ('Plans de la ville','Plans'),
     ('Remparts - Fortifications','Remparts-Fortifications'),
+    ('Ponts','Ponts'),
     ('Hôtels particuliers','Hôtels_particuliers'),
+    ('Maisons','Maisons'),
+    ('Edifice','Edifice'),
+    ('Caserne','Caserne'),
+    ('Fort','Fort'),
+    # ('Quartier', 'Quartier'),
+    # ('Fermes-Châteaux','Fermes-Châteaux'),
+    # ('Greniers','Greniers'),
+    # ('Musées','Musées'),
+    # ('Plans de la ville','Plans'),
 )
 
 class Noms (models.Model):

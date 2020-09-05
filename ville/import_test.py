@@ -3,61 +3,62 @@ import glob
 import xlrd
 import datetime
 
+from django.shortcuts import redirect
+
 from ville import views
 
+from django.conf import settings
 
-def import_ext_xls() :
+def import_path_xls ():
 
-
-
-    # uploaded_file = views.upload()
-
-    # fs = views.upload()
-    # print("name import : ",name_data)
-    # print("fs import : ",fs)
-
-    # print("TEST de LANCEMENT")
-
-
-    # num_monument = 9
-    # name_monument = "Cathédrale"
-    # rem_monument = "ou Eglise"
-
-    # dict_monument = {
-    #         "XIV°": "Il est situé au n° 20 de la rue Chèvremont  Son portail et sa tour carrée sont remarquables  La vierge de sa belle niche d'angle a disparue.  La cour intérieure, entourée de bâtiments, débouche à l'arrière sur des jardins.      &&&  Le nom est certainement du à son escarpement.      de la rue des Jardins.",
-    #         "1518-1527": "Le Maître verrier Valentin BOUSCH y vécu. Il y possédait ses ateliers dans lesquels il conçu les vitraux de la Cathédrale. &&&",
-    # }
-
-    # return num_monument, name_monument, rem_monument, dict_monument
-
-    # name_data = "Chalverson.xls"
-    # name_data = "Burtaigne.xls"
-   
-    # CUR_DIR = os.path.dirname(__file__)
-    # DATA_DIR = os.path.join(CUR_DIR, name_data)
-
-    # CUR_DIR = os.path.join(os.getcwd(),"media")
-    # DATA_DIR = os.path.join(CUR_DIR, name_data)
-
-    # print("c'est le CUR_DIR :",CUR_DIR)
-    # print("c'est le DATA_DIR :",DATA_DIR)
-                                                                # # POUR MEMOIRE : cell = cell(row,col)
-
+    # CUR_DIR2 = "/home/metz/metz.pythonanywhere.com/media/**"   # POUR PYTHONANYWHERE
     CUR_DIR2 = os.path.join(os.getcwd(),"media/**")
     files = glob.glob(CUR_DIR2, recursive=True)
 
+
+
+
+    return files
+
     #################################################### Gestion feuille XLS
+
+def import_ext_xls() :
+
+    files = import_path_xls()
 
     # document = xlrd.open_workbook(DATA_DIR)
     document = xlrd.open_workbook(files[1])
 
-
     feuille_1 = document.sheet_by_index(0)
 
-    num_monument = str(int(feuille_1.cell_value(0, 0)))
-    name_monument = (feuille_1.cell_value(0, 1))
-    name_monument = " ".join(name_monument.split())
-    rem_monument = (feuille_1.cell_value(0, colx=2))
+    if feuille_1.cell_type(rowx=0, colx=0) == 1 :
+        num_monument = (feuille_1.cell_value(0, 0))
+    elif feuille_1.cell_type(rowx=0, colx=0) == 2 :
+        num_monument = str(int(feuille_1.cell_value(0, 0)))
+    else :
+        num_monument = "Erreur Syntaxe"                                             # Si case vide
+    # num_monument = str(int(feuille_1.cell_value(0, 0)))
+
+   
+
+    # name_monument = (feuille_1.cell_value(0, 1))
+    # name_monument = " ".join(name_monument.split())
+    # rem_monument = (feuille_1.cell_value(0, colx=2))
+
+    i = 0
+    name_monument = rem_monument = ""
+
+    # try: 
+    while feuille_1.cell_value(rowx=i, colx=1).strip() != "HISTORIQUE" :           # boucle sur le Nom avant le Historique et Remarque
+        name_monument += feuille_1.cell_value(rowx=i, colx=1) + " "
+        rem_monument += feuille_1.cell_value(rowx=i, colx=2) + " "
+        i += 1
+
+
+    name_monument = name_monument.strip()
+    while "  " in name_monument:
+        name_monument = name_monument.replace("  "," ")
+
 
     cols = feuille_1.ncols      # Nombre de colonne
     rows = feuille_1.nrows      # Nombre de ligne
@@ -145,4 +146,19 @@ def import_ext_xls() :
 
     list_monument = zip(list_dates,list_historique,list_remarque)
 
+    
+
+    # print(num_monument)
+    # print("---------")
+    # print(name_monument)
+    # print("---------")
+    # print(rem_monument)
+    # print("---------")
+    # print(list_monument)
+    # print("---------")
+    # print(files)
+    # print("---------")
+
     return num_monument, name_monument, rem_monument, list_monument, files
+    # except:
+    #     return redirect("selection")

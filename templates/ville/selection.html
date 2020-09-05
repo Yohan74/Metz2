@@ -11,7 +11,7 @@
         <div class="col-lg-4 col-md-6 mb-4">
         
             <div class="card">
-                <img src="{% static 'img/card_'%}{{value}}.jpg" class="rounded mx-auto d-block mt-2" style="width:200px; height: 200px; ">
+                <a href="{% url 'monument' value  %}"><img src="{% static 'img/card_'%}{{value}}.jpg" class="rounded mx-auto d-block mt-2" style="width:auto; height: 200px; "></a>
                 <div class="container" style="text-align: center;">
                     <a href="{% url 'monument' value  %}"><h4><b>{{name}}</b></h4></a>
                 </div>

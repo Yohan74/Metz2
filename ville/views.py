@@ -70,6 +70,7 @@ def fiche_import (request) :
     fiche_imports = Noms.objects.all().order_by("slug")
 
     context = {
+        "selections" : SELECTION,
         "trie" : "1",
         "fiche_imports" : fiche_imports ,
     }
@@ -81,10 +82,35 @@ def fiche_import2 (request) :
     fiche_imports = Noms.objects.all().order_by("creation")
 
     context = {
+        "selections" : SELECTION,
         "trie" : "2",
         "fiche_imports" : fiche_imports ,
     }
 
+    return render (request,'ville/fiche_import.html', context)
+
+
+def search (request):
+    try:
+        q = request.GET.get('q')
+        r = request.GET.get('r')
+    except:
+        q = None
+
+    if q :
+        fiche_imports = Noms.objects.filter(nom__icontains=q).order_by("slug")
+
+    elif r :
+        fiche_imports = Noms.objects.filter(selection__icontains=r).order_by("slug")
+    else:
+        return redirect ("fiche_import")
+
+    context = {
+        "selections" : SELECTION,
+        'r': r,
+        'q' : q ,
+        "fiche_imports" : fiche_imports,
+        }
     return render (request,'ville/fiche_import.html', context)
 
 
@@ -140,15 +166,15 @@ def import_xls (request):
                     request, "Importation réussie")
 
             elif test_nom_selection :
+
                 messages.warning(
                     request, "Importation non effectuée car fiche déjà présente.")
 
-
-            for f in files :                  # Ne pas OUBLIER DE REMETTRE AINSI QUE Ligne 124
-                if f.endswith(".xls") or f.endswith(".xlsx")  : 
-                    os.remove(f)
-
-            form = Upload_Form()
+            delete_upload(request)
+            # for f in files :                  # Ne pas OUBLIER DE REMETTRE AINSI QUE Ligne 124
+            #     if f.endswith(".xls") or f.endswith(".xlsx")  : 
+            #         os.remove(f)
+            # form = Upload_Form()
             return redirect("upload")
 
         else :
@@ -156,7 +182,6 @@ def import_xls (request):
 
     else :
         form = Upload_Form()
-
 
     context = {
         "num_monument": num_monument,
@@ -181,14 +206,19 @@ class UploadView(View):
                 fs = FileSystemStorage()
                 fs.save(uploaded_file.name, uploaded_file)   # A REMETTRE AINSI QUE LE DELETE dans Valide_upload
 
-                num_monument, name_monument, rem_monument, list_monument, files = import_test.import_ext_xls()
+                try :
+                    num_monument, name_monument, rem_monument, list_monument, files = import_test.import_ext_xls()
+                except :
+                    delete_upload(self.request)
+                    messages.warning(
+                        self.request, "La présentation de la fiche n'est pas conforme.")
+                    return redirect("upload")
+
 
                 context = {
                     "num_monument": num_monument,
                     "name_monument":name_monument,
                     "rem_monument":rem_monument,
-
-                    "test" : name_data,
                 }
 
                 return redirect("import")
@@ -201,7 +231,7 @@ class UploadView(View):
 
 def delete_upload (request):
 
-    num_monument, name_monument, rem_monument, list_monument, files  = import_test.import_ext_xls()
+    files = import_test.import_path_xls()
 
     for f in files :                  # Ne pas OUBLIER DE REMETTRE AINSI QUE Ligne 124
         if f.endswith(".xls") or f.endswith(".xlsx") : 
@@ -229,6 +259,12 @@ def del_verif (request, value, slug) :
     mess = "La fiche \"<b>" + fiche.nom + "</b> <i>(" + fiche.selection + ")</i>" + "\" n'est plus marquée à revoir. Pensez à la réimporter après modification."
     messages.info(request, mess)
 
+    del_fiche(request, value, slug)
+
     return redirect("upload")
 
- 
+def test (request) :
+
+    context = {}
+
+    return render (request, 'ville/test.html', context)

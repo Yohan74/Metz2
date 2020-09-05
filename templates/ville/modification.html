@@ -11,7 +11,9 @@
     <div style="text-align: center; margin-bottom: 20px; ">
     </div>
     <div style="text-align: center; margin-bottom: -10px; font-size: x-small; ">
-        <p> Cliquer sur <i class="fa fa-window-close" style='color: rgb(0, 119, 255);' ></i> pour lancer sa réimportation après modification. </p>
+        {% if modif_fiches %}
+        <p> Cliquer sur <i class="fa fa-window-close" style='color: red;' ></i> pour supprimer et réimporter après modification. </p>
+        {% endif %}
     </div>
     <div class="row">
         <div class="col-lg-4 col-md-6 mb-4">
@@ -23,7 +25,7 @@
                           <tr>
                             <td class="col-sm-10"><a href='{% url "detail" modif_fiche.selection modif_fiche.slug  %}' class="list-group-item list-group-item-action" style="height: 98px;"> {{modif_fiche.nom}} <br> <span style="font-size: x-small;">({{modif_fiche.selection}})</span> </a></td>
                             <td class="col-sm-2">
-                                <a style='color: rgb(0, 119, 255);' href='{% url "del_verif" modif_fiche.selection modif_fiche.slug %}' class="d-flex align-items-center justify-content-center">
+                                <a style='color: red;' href='{% url "del_verif" modif_fiche.selection modif_fiche.slug %}' class="d-flex align-items-center justify-content-center">
                                     <i class="fa fa-window-close float-right"></i>
                                 </a>
                             </td>
@@ -37,11 +39,11 @@
                                 <div class="container" style="text-align: center;">
                     {% endif %}
                       {% empty %}
-                      <div class="col-sm-12 offset-11">
-                          <p>Aucune fiche importée pour le moment</p>
+                      <div class="container col-sm-12  offset-11" style="margin-top: 100px; ";>
+                          <p>Aucune fiche à revoir pour le moment</p>
                           <div class="col-sm-12" style="text-align: center;">
-                              <a href="{% url 'modif_fiche' %}">
-                                  <img src="{% static 'img/left-arrow.png' %}" style="width: 80px;" alt="MetZ">
+                              <a href="{% url 'selection' %}">
+                                  <img src="{% static 'img/left-arrow.png' %}" style="width: 80px; margin-top: 50px;" alt="MetZ">
                               </a>
                           </div>
                       </div>  
