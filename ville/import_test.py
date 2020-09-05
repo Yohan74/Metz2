@@ -11,8 +11,8 @@ from django.conf import settings
 
 def import_path_xls ():
 
-    # CUR_DIR2 = "/home/metz/metz.pythonanywhere.com/media/**"   # POUR PYTHONANYWHERE
-    CUR_DIR2 = os.path.join(os.getcwd(),"media/**")
+    CUR_DIR2 = "/home/metz/metz.pythonanywhere.com/media/**"   # POUR PYTHONANYWHERE
+#     CUR_DIR2 = os.path.join(os.getcwd(),"media/**")
     files = glob.glob(CUR_DIR2, recursive=True)
 
 
